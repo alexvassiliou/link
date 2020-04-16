@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io"
 
 	"golang.org/x/net/html"
@@ -51,7 +50,6 @@ func (l *Link) getHref(t html.Token) {
 
 func (l *Link) getText(tt html.TokenType, z *html.Tokenizer) {
 	if tt == html.TextToken {
-		g := z.Token()
-		fmt.Println(g)
+		l.Text = z.Token().Data
 	}
 }
