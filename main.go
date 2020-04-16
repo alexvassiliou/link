@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-
-	"golang.org/x/net/html"
 )
 
 func main() {
@@ -19,27 +17,13 @@ func main() {
 	}
 	defer f.Close()
 
-	z := html.NewTokenizer(f)
-
-	for {
-		tt := z.Next()
-
-		switch {
-		case tt == html.ErrorToken:
-			return
-		case tt == html.StartTagToken:
-			t := z.Token()
-
-			isAnchor := t.Data == "a"
-			if isAnchor {
-				for _, a := range t.Attr {
-					if a.Key == "href" {
-						fmt.Println("Found href:", a.Val)
-						break
-					}
-				}
-			}
-
-		}
+	l, err := ParseLinks(f)
+	if err != nil {
+		log.Fatal(err)
 	}
+
+	for _, l := range l {
+		fmt.Println(l)
+	}
+
 }
