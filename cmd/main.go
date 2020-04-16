@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 	"os"
+
+	"github.com/alexvassiliou/gophercises/link"
 )
 
 func main() {
@@ -17,7 +19,7 @@ func main() {
 	}
 	defer f.Close()
 
-	l, err := ParseLinks(f)
+	l, err := link.ParseLinks(f)
 	if err != nil {
 		log.Fatal(err)
 	}
